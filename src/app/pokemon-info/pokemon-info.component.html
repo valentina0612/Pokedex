@@ -1,0 +1,25 @@
+<div class="container" [ngStyle]="{'background-image': 'url(' + theme.background + ')'}">
+<div class="column" [ngStyle]="{'background': theme.color, 'opacity': '0.9'}">
+  <a href="index" class="backButton">
+    &#8592;
+  </a>    
+  <div class="number">
+    <h3>{{pokemon.id}}</h3>
+  </div>
+  <div class="name">
+    <h1>{{pokemon.name}}</h1>
+  </div>
+  <div class="typeContainer">
+    <p>{{pokemon.type}}</p>
+  </div>
+  <div class="imgContainer" [ngStyle]="{'background-image': 'url(' + theme.card + ')'}">
+    <img src="{{pokemon.image}}" alt="{{pokemon.name}}" class="img-fluid">
+  </div>
+  <div class="abilitiesContainer">
+    <p>Abilities: {{pokemon.abilities}}</p>
+  </div>
+  <div class="infoContainer">
+    <span *ngFor="let stat of pokemon.stats">{{stat.name}}: {{stat.baseValue}}</span>
+  </div>
+</div>
+</div>

@@ -1,0 +1,16 @@
+<div class="container">
+<div class="title">
+    <img src="../../assets/media/title.png" alt="Pokedex">
+</div>
+<div class="cards" *ngIf="pokemon.length > 0">
+            <div *ngFor="let p of pokemon">
+                <button class="card" (click)="goToDetails(p.id)">
+                    <img class="card-img-top" [src]="p.image" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{p.name}}</h5>
+                        <p class="card-text">Id: {{p.id}}</p>
+                        <p class="card-text">Type: {{p.type}}</p>
+                </div>
+                </button>
+</div>
+</div>
