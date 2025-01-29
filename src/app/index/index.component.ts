@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class IndexComponent implements OnInit {
   pokemon: {'name': string, 'id': number, 'image':string, 'type':any[] }[] = [];
+  next: string = '';
+  previous: string = '';
   constructor(private pokemonService: PokeApiService, public router:Router) {}
 
   ngOnInit() {
@@ -20,12 +22,30 @@ export class IndexComponent implements OnInit {
   }
 
   loadPokemon() {
-    this.pokemonService.getPokemon().subscribe((data: any[]) => {
-      console.log(data);
-      for (let pokemon of data) {
+    this.pokemonService.getPokemon().subscribe((data: any) => {
+      this.next = data.next;
+      for (let pokemon of data.results) {
         this.loadPokemonDetails(pokemon.url);
       }});
-      console.log(this.pokemon);
+  }
+
+  loadMorePokemon(url: string) {
+    this.pokemon = [];
+    this.pokemonService.getMorePokemon(url).subscribe((data: any) => {
+      this.next = data.next;
+      this.previous = data.previous;
+      if (data.previous == null) {
+        this.previous = '';
+      }
+
+      if (data.next == null) {
+        this.next = '';
+      }
+
+      for (let pokemon of data.results) {
+        this.loadPokemonDetails(pokemon.url);
+      }
+    });
   }
 
   loadPokemonDetails(url: string) {
@@ -44,4 +64,24 @@ export class IndexComponent implements OnInit {
   goToDetails(id: number) {
     this.router.navigate(['/details', id]);
   }
+
+  onSearchInput(event: any) {
+    const searchValue = event.target.value.toLowerCase();
+    if (searchValue === '') {
+      this.pokemon = [];
+      return this.loadPokemon();
+    }
+    if (this.pokemonService) {
+      this.pokemonService.filterPokemonByName(searchValue).subscribe((data: any) => {
+        this.pokemon = [];
+        for (let pokemon of data) {
+          this.loadPokemonDetails(pokemon.url);
+        }
+      });
+      this.previous = '';
+      this.next = '';
+    }
+    return this.pokemon;
+  }
+
 }

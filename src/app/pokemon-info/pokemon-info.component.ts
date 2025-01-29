@@ -25,7 +25,7 @@ constructor(private pokemonService: PokeApiService, private route: ActivatedRout
   }
 
   loadPokemonInfo(){
-    this.pokemonService.getPokemonById(this.pokemonId).subscribe((data: any) => {
+    this.pokemonService.getPokemonByIdOrName(this.pokemonId).subscribe((data: any) => {
       let pokemonData = {
         name: data['name'].charAt(0).toUpperCase() + data['name'].slice(1),
         id: data['id'],

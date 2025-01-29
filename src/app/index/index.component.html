@@ -1,9 +1,12 @@
 <div class="container">
+    <div class="searchContainer">
+        <input type="text" class="searchBar" (input)="onSearchInput($event)" placeholder="Search a Pokemon...">
+      </div>      
 <div class="title">
     <img src="../../assets/media/title.png" alt="Pokedex">
 </div>
 <div class="cards" *ngIf="pokemon.length > 0">
-            <div *ngFor="let p of pokemon">
+            <div *ngFor="let p of pokemon  | slice:0:20">
                 <button class="card" (click)="goToDetails(p.id)">
                     <img class="card-img-top" [src]="p.image" alt="Card image cap">
                     <div class="card-body">
@@ -14,3 +17,9 @@
                 </button>
 </div>
 </div>
+<div class="buttons">
+<button *ngIf="previous != ''" class="arrow-button" id="previous" (click)="loadMorePokemon(previous)"></button>
+<button *ngIf="next != ''" class="arrow-button" id="next" (click)="loadMorePokemon(next)"></button>
+</div>
+</div>
+
