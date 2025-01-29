@@ -14,7 +14,6 @@ import { ActivatedRoute } from '@angular/router';
 export class PokemonInfoComponent implements OnInit {
   pokemonId!: number;
   pokemon: {'name': string, 'id': number, 'image':string, 'type':any[], 'abilities':any[],'stats':any[] } = {'name':'', 'id':0, 'image':'', 'type':[], 'abilities':[], 'stats':[]};
-  background = {'water':'assets/media/waterBackground.png'};
   theme = {'color': '', 'background': '', 'card':''};
 
 constructor(private pokemonService: PokeApiService, private route: ActivatedRoute) {}
@@ -44,7 +43,7 @@ constructor(private pokemonService: PokeApiService, private route: ActivatedRout
 
   themes(type: string){
     if(type === 'Water'){
-      return this.theme = {'color': '#3B4CCA', 'background': '../../assets/media/waterBackground.png', 'card':'../../assets/media/waterCard.jpg'};
+      return this.theme = {'color': '#5798fa', 'background': '../../assets/media/waterBackground.jpg', 'card':'../../assets/media/waterCard.jpg'};
     }
     if(type === 'Fire'){
       return this.theme = {'color': '#FF3D00', 'background': 'assets/media/fireBackground.jpg', 'card':'assets/media/fireCard.jpg'};
